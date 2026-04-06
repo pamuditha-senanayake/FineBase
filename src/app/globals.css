@@ -3,15 +3,16 @@
   --foreground: #0a0a0a;
   --accent: #d4af37; /* Gold/Classy accent */
   --muted: #f4f4f5;
-  --muted-foreground: #71717a;
+  --muted-foreground: #4b5563; /* Darkened for better contrast */
   --border: #e4e4e7;
+  --vibrant-aura: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, rgba(139, 92, 246, 0.04) 30%, transparent 70%);
   
   --font-serif: 'EB Garamond', serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   
   --container-max-width: 1200px;
-  --section-padding: 10rem; /* Big whitespace */
-  --mobile-section-padding: 5rem;
+  --section-padding: 12rem; /* Increased whitespace for premium feel */
+  --mobile-section-padding: 6rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +20,9 @@
     --background: #09090b;
     --foreground: #fafafa;
     --muted: #18181b;
-    --muted-foreground: #a1a1aa;
+    --muted-foreground: #d1d5db; /* Lightened for better contrast */
     --border: #27272a;
+    --vibrant-aura: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.15) 0%, rgba(139, 92, 246, 0.08) 30%, transparent 70%);
   }
 }
 
@@ -79,19 +81,23 @@ p {
   font-family: var(--font-sans);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.875rem;
+  letter-spacing: 0.125em;
+  font-size: 0.8125rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   border: 1px solid var(--border);
   background: transparent;
   color: var(--foreground);
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn:hover {
   background: var(--foreground);
   color: var(--background);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .btn-primary {
@@ -100,9 +106,21 @@ p {
   border-color: var(--foreground);
 }
 
-.btn-primary:hover {
-  background: transparent;
-  color: var(--foreground);
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: rgba(255,255,255,0.2);
+  transform: rotate(30deg);
+  transition: all 0.6s ease;
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  left: 140%;
 }
 
 /* Animations Helper */

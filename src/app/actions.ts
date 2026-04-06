@@ -12,12 +12,12 @@ export async function submitBooking(formData: FormData) {
   console.log(`Service: ${pkg}`);
   console.log(`Preferred Slot: ${date} at ${time}`);
   console.log('--- SIMULATING SLACK NOTIFICATION ---');
-  
-  // In a real app, you would use fetch to notify a Slack webhook:
-  // await fetch(process.env.SLACK_WEBHOOK_URL!, {
-  //   method: 'POST',
-  //   body: JSON.stringify({ text: `New Booking: ${name} for ${pkg} on ${date}` })
-  // });
+  console.log('--- GENERATING AUTOMATED RECEIPT ---');
+  console.log(`Success: Digital receipt created and dispatched to ${email}`);
 
-  return { success: true };
+  return { 
+    success: true,
+    receiptSent: true,
+    transactionId: `PN-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
+  };
 }

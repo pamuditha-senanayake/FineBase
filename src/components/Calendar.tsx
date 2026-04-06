@@ -24,7 +24,7 @@ export default function Calendar({ onSelect }: { onSelect: (date: string, time: 
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', background: 'white', padding: '3rem', border: '1px solid var(--border)' }}>
+    <div style={{ background: 'white', padding: '3rem', border: '1px solid var(--border)' }}>
       <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>Select a Date</h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
         {dates.map((date) => (
@@ -48,11 +48,14 @@ export default function Calendar({ onSelect }: { onSelect: (date: string, time: 
       </div>
 
       <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>Available Time Slots</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '1rem', marginBottom: '4rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '1rem' }}>
         {TIMES.map((time) => (
           <button
             key={time}
-            onClick={() => setSelectedTime(time)}
+            onClick={() => {
+              setSelectedTime(time);
+              if (selectedDate) onSelect(selectedDate, time);
+            }}
             disabled={!selectedDate}
             style={{
               padding: '1rem',
@@ -69,15 +72,6 @@ export default function Calendar({ onSelect }: { onSelect: (date: string, time: 
           </button>
         ))}
       </div>
-
-      <button
-        onClick={handleComplete}
-        disabled={!selectedDate || !selectedTime}
-        className="btn btn-primary"
-        style={{ width: '100%', padding: '1.25rem' }}
-      >
-        Confirm Schedule
-      </button>
     </div>
   );
 }

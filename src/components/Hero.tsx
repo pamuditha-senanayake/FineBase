@@ -7,21 +7,20 @@ const SLACK_INVITE = "https://join.slack.com/t/finebaselabs/shared_invite/zt-3ut
 export default function Hero() {
   return (
     <section className="section" style={{
-      paddingTop: '16rem',
-      paddingBottom: '12rem',
-      background: 'white',
+      paddingTop: '20rem',
+      paddingBottom: '14rem',
+      background: 'var(--background)',
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Background Subtle Gradient */}
+      {/* Background Vibrant Glow */}
       <div style={{
         position: 'absolute',
-        top: '10%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '80vw',
-        height: '80vh',
-        background: 'radial-gradient(circle, rgba(212, 175, 55, 0.03) 0%, transparent 70%)',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        background: 'var(--vibrant-aura)',
         zIndex: 0
       }}></div>
 
@@ -29,62 +28,73 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ maxWidth: '900px', margin: '0 auto' }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          style={{ maxWidth: '1000px', margin: '0 auto' }}
         >
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
             style={{
-              fontSize: '0.75rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.4em',
-              color: 'var(--accent)',
-              fontWeight: '600',
-              display: 'block',
-              marginBottom: '2rem'
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '1rem',
+              padding: '0.625rem 1.25rem',
+              background: 'rgba(212, 175, 55, 0.05)',
+              border: '1px solid rgba(212, 175, 55, 0.1)',
+              borderRadius: '100px',
+              marginBottom: '3rem'
             }}
           >
-            Finebase Labs & Consulting
-          </motion.span>
+            <div style={{ width: '6px', height: '6px', background: 'var(--accent)', borderRadius: '50%' }}></div>
+            <span style={{
+              fontSize: '0.625rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.3em',
+              color: 'var(--accent)',
+              fontWeight: '700'
+            }}>
+              Finebase Labs & Consulting
+            </span>
+          </motion.div>
 
           <h1 style={{
-            fontSize: 'max(4.5rem, 7vw)',
-            marginBottom: '2.5rem',
-            lineHeight: '1.05',
+            fontSize: 'max(5rem, 8vw)',
+            marginBottom: '3rem',
+            lineHeight: '1',
             color: 'var(--foreground)',
             fontFamily: 'var(--font-serif)',
-            fontWeight: '400'
+            fontWeight: '400',
+            letterSpacing: '-0.03em'
           }}>
             Advanced R&D. <br />
-            Next-Gen <span style={{ fontStyle: 'italic', fontWeight: '300' }}>Solutions</span>.
+            Architectural <span style={{ fontStyle: 'italic', fontWeight: '300', opacity: 0.9 }}>Distinction</span>.
           </h1>
           
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            transition={{ delay: 0.5, duration: 1 }}
             style={{
-              fontSize: '1.25rem',
+              fontSize: '1.375rem',
               color: 'var(--muted-foreground)',
-              marginBottom: '4rem',
-              maxWidth: '650px',
-              margin: '0 auto 4rem',
+              marginBottom: '5rem',
+              maxWidth: '700px',
+              margin: '0 auto 5rem',
               lineHeight: '1.8'
             }}
           >
             Empowering tech-driven enterprises through elite software engineering, 
-            strategic R&D consulting, and bespoke product development.
+            strategic technical R&D, and bespoke architectural orchestrations.
           </motion.p>
           
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', alignItems: 'center' }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            style={{ display: 'flex', gap: '2rem', justifyContent: 'center', alignItems: 'center' }}
           >
-            <Link href="/booking" className="btn btn-primary" style={{ padding: '1.25rem 3.5rem', borderRadius: '4px' }}>
+            <Link href="/booking" className="btn btn-primary" style={{ padding: '1.5rem 4rem', borderRadius: '100px' }}>
               Launch Your Project
             </Link>
             <a 
@@ -92,7 +102,7 @@ export default function Hero() {
               target="_blank" 
               rel="noopener noreferrer"
               className="btn" 
-              style={{ padding: '1.25rem 3.5rem', borderRadius: '4px', border: '1px solid var(--border)' }}
+              style={{ padding: '1.5rem 4rem', borderRadius: '100px', border: '1px solid var(--border)' }}
             >
               Discuss in Lab
             </a>

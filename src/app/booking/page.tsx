@@ -1,105 +1,359 @@
 'use client';
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useRef, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Calendar from '@/components/Calendar';
+import PaymentStep from '@/components/PaymentStep';
+import BookingStep from '@/components/BookingStep';
+import { submitBooking } from '@/app/actions';
 import { motion } from 'framer-motion';
+
+const SERVICE_CATEGORIES = [
+  {
+    id: 'web',
+    title: 'Web Platforms',
+    tiers: [
+      { name: 'Simple', price: '$150.00', numPrefix: '150' },
+      { name: 'Core', price: '$1,500.00', numPrefix: '1500' },
+      { name: 'Professional', price: '$5,000.00', numPrefix: '5000' },
+      { name: 'Enterprise', price: '$15,000.00', numPrefix: '15000' }
+    ]
+  },
+  {
+    id: 'mobile',
+    title: 'Mobile Apps',
+    tiers: [
+      { name: 'Simple', price: '$250.00', numPrefix: '250' },
+      { name: 'Core', price: '$4,500.00', numPrefix: '4500' },
+      { name: 'Professional', price: '$9,500.00', numPrefix: '9500' },
+      { name: 'Enterprise', price: '$15,000.00', numPrefix: '15000' }
+    ]
+  },
+  {
+    id: 'lab',
+    title: 'R&D Consulting',
+    tiers: [
+      { name: 'Simple', price: '$100.00', numPrefix: '100' },
+      { name: 'Core', price: '$1,500.00', numPrefix: '1500' },
+      { name: 'Professional', price: '$5,000.00', numPrefix: '5000' },
+      { name: 'Enterprise', price: 'Contact Lab', numPrefix: '25000' }
+    ]
+  }
+];
 
 function BookingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const pkg = searchParams.get('package') || 'Essential';
+  const initialService = searchParams.get('service') || ''; // category-tier format
   
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(initialService ? 1 : 0);
+  const [activeCategoryId, setActiveCategoryId] = useState(initialService.split('-')[0] || 'web');
+  const [activeTierName, setActiveTierName] = useState(initialService.split('-')[1] || '');
+  
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
+  const [txnDetails, setTxnDetails] = useState<{ id?: string, receiptSent?: boolean }>({});
+  
+  const step0Ref = useRef<HTMLDivElement>(null);
+  const step2Ref = useRef<HTMLDivElement>(null);
+  const step3Ref = useRef<HTMLDivElement>(null);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     date: '',
-    time: ''
+    time: '',
+    package: initialService
   });
+
+  // Derived data
+  const currentCategory = SERVICE_CATEGORIES.find(c => c.id === activeCategoryId)!;
+  const currentTier = currentCategory.tiers.find(t => t.name.toLowerCase() === activeTierName.toLowerCase());
+
+  // Auto-scroll logic
+  useEffect(() => {
+    if (step === 0 && step0Ref.current) {
+      step0Ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (step === 2 && step2Ref.current) {
+      step2Ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (step === 3 && step3Ref.current) {
+      step3Ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [step]);
 
   const handleDateSelect = (date: string, time: string) => {
     setFormData({ ...formData, date, time });
     setStep(2);
   };
 
-  const handleFinalSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Redirect to payment with details
-    const params = new URLSearchParams({
-      ...formData,
-      package: pkg
-    });
-    router.push(`/payment?${params.toString()}`);
+    setStep(3);
   };
+
+  const handlePaymentComplete = async (cardData: any) => {
+    setIsProcessing(true);
+    
+    const serverFormData = new FormData();
+    Object.entries(formData).forEach(([key, value]) => serverFormData.append(key, value));
+    serverFormData.append('payment_status', 'SUCCESS_MOCK');
+    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    const result = await submitBooking(serverFormData);
+    if (result.success) {
+      setTxnDetails({ id: result.transactionId, receiptSent: result.receiptSent });
+      setIsComplete(true);
+      setIsProcessing(false);
+    }
+  };
+
+  if (isComplete) {
+    return (
+      <main style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white' }}>
+        <motion.div
+           initial={{ opacity: 0, scale: 0.9 }}
+           animate={{ opacity: 1, scale: 1 }}
+           style={{ textAlign: 'center', maxWidth: '500px' }}
+        >
+          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#f8fafc', margin: '0 auto 2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #2B2E4A' }}>
+            <span style={{ fontSize: '2rem', color: '#2B2E4A' }}>✓</span>
+          </div>
+          
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            padding: '0.5rem 1rem',
+            background: 'rgba(34, 197, 94, 0.05)',
+            border: '1px solid rgba(34, 197, 94, 0.1)',
+            borderRadius: '100px',
+            color: '#15803d',
+            fontSize: '0.625rem',
+            fontWeight: '700',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            marginBottom: '2rem'
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Automated Receipt Sent
+          </div>
+
+          <h1 style={{ fontSize: '3rem', marginBottom: '1.5rem', lineHeight: '1.1' }}>Reservation <br /> <span style={{ fontStyle: 'italic' }}>Simulated Success</span>.</h1>
+          <p style={{ color: 'var(--muted-foreground)', marginBottom: '3.5rem', fontSize: '1rem', lineHeight: '1.6' }}>
+            Your sandbox transaction has been successful. A formal digital receipt and onboarding kit have been "sent" to <b>{formData.email}</b>. 
+            Your transaction ID for reference is <b>{txnDetails.id}</b>.
+          </p>
+          <button onClick={() => router.push('/')} className="btn btn-primary" style={{ padding: '1rem 4rem', borderRadius: '100px' }}>
+            Return Home
+          </button>
+        </motion.div>
+      </main>
+    );
+  }
 
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: '10rem' }}>
       <Navbar />
-      <div className="container" style={{ flex: 1, marginBottom: '10rem' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ marginBottom: '4rem', textAlign: 'center' }}>
-            <h1 style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>Reserve Your <br /> <span style={{ fontStyle: 'italic' }}>Session</span>.</h1>
-            <p style={{ color: 'var(--muted-foreground)' }}>Package: <span style={{ color: 'var(--foreground)', fontWeight: '600', textTransform: 'capitalize' }}>{pkg}</span></p>
-          </div>
+      <div className="container" style={{ flex: 1, marginBottom: '15rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <header style={{ marginBottom: '6rem', textAlign: 'left' }}>
+            <h1 style={{ fontSize: '4.5rem', marginBottom: '1.5rem', lineHeight: '1' }}>Project <br /> <span style={{ fontStyle: 'italic' }}>Initiation</span>.</h1>
+            <p style={{ maxWidth: '500px', color: 'var(--muted-foreground)' }}>
+              Complete the following stages to secure your placement in the Finebase R&D Lab.
+            </p>
+          </header>
 
-          {step === 1 ? (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {/* Step 00: Project Scope */}
+            <div ref={step0Ref}>
+              <BookingStep
+                number="00"
+                title="Project Scope"
+                subtitle="Specify the category and tier of your project for accurate lab allocation."
+                isActive={step === 0}
+                isCompleted={!!activeTierName && step > 0}
+                onEdit={() => setStep(0)}
+                summary={
+                  <div style={{ display: 'flex', gap: '2rem' }}>
+                    <div>
+                      <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Category</span>
+                      <span style={{ fontWeight: '600' }}>{currentCategory.title}</span>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Tier</span>
+                      <span style={{ fontWeight: '600' }}>{activeTierName || 'Not Selected'}</span>
+                    </div>
+                  </div>
+                }
+              >
+                <div style={{ background: 'white', border: '1px solid var(--border)', padding: '3rem', borderRadius: '8px' }}>
+                  <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
+                    {SERVICE_CATEGORIES.map(cat => (
+                      <button 
+                        key={cat.id}
+                        onClick={() => {
+                          setActiveCategoryId(cat.id);
+                          setActiveTierName(''); // Reset tier when category changes
+                        }}
+                        style={{
+                          padding: '0.625rem 1.5rem',
+                          borderRadius: '100px',
+                          border: activeCategoryId === cat.id ? '1px solid var(--accent)' : '1px solid var(--border)',
+                          background: activeCategoryId === cat.id ? 'var(--foreground)' : 'white',
+                          color: activeCategoryId === cat.id ? 'var(--background)' : 'var(--foreground)',
+                          fontSize: '0.625rem',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.1em',
+                          fontWeight: '600',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {cat.title}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                    {currentCategory.tiers.map(tier => (
+                      <button
+                        key={tier.name}
+                        onClick={() => {
+                          setActiveTierName(tier.name);
+                          setFormData({ ...formData, package: `${activeCategoryId}-${tier.name.toLowerCase()}` });
+                          setStep(1); // Move to schedule
+                        }}
+                        style={{
+                          textAlign: 'left',
+                          padding: '1.5rem',
+                          border: activeTierName === tier.name ? '1px solid var(--accent)' : '1px solid var(--border)',
+                          background: activeTierName === tier.name ? '#fcfcfc' : 'white',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', color: 'var(--muted-foreground)', display: 'block', marginBottom: '0.5rem' }}>{tier.name}</span>
+                        <div style={{ fontSize: '1.25rem', fontWeight: '500' }}>{tier.price}</div>
+                        <div style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--accent)' }}>Select Tier →</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </BookingStep>
+            </div>
+
+            {/* Step 1: Calendar */}
+            <BookingStep
+              number="01"
+              title="Select Schedule"
+              subtitle="Choose a preferred time for our technical discovery session."
+              isActive={step === 1}
+              isCompleted={step > 1}
+              onEdit={() => setStep(1)}
+              summary={
+                <div style={{ display: 'flex', gap: '2rem' }}>
+                  <div>
+                    <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Date</span>
+                    <span style={{ fontWeight: '600' }}>{formData.date}</span>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Time</span>
+                    <span style={{ fontWeight: '600' }}>{formData.time}</span>
+                  </div>
+                </div>
+              }
             >
               <Calendar onSelect={handleDateSelect} />
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              style={{ maxWidth: '500px', margin: '0 auto', background: 'white', padding: '4rem', border: '1px solid var(--border)' }}
-            >
-              <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem' }}>Contact Details</h2>
-              <p style={{ fontSize: '0.875rem', marginBottom: '2.5rem', color: 'var(--muted-foreground)' }}>
-                Please provide your contact information to finalize the booking of your <b>{formData.date} at {formData.time}</b> session.
-              </p>
-              
-              <form onSubmit={handleFinalSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <label style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Full Name</label>
-                  <input
-                    required
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    style={{ padding: '1rem', border: '1px solid var(--border)', fontFamily: 'var(--font-sans)', outline: 'none' }}
-                    placeholder="Enter your name"
-                  />
-                </div>
-                
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <label style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Email Address</label>
-                  <input
-                    required
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    style={{ padding: '1rem', border: '1px solid var(--border)', fontFamily: 'var(--font-sans)', outline: 'none' }}
-                    placeholder="Enter your email"
-                  />
-                </div>
+            </BookingStep>
 
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                  <button type="button" onClick={() => setStep(1)} style={{ flex: 1, padding: '1.25rem', border: '1px solid var(--border)', background: 'transparent', cursor: 'pointer', fontSize: '0.875rem' }}>
-                    Back
-                  </button>
-                  <button type="submit" className="btn btn-primary" style={{ flex: 2, padding: '1.25rem' }}>
-                    Continue to Payment
-                  </button>
-                </div>
-              </form>
-            </motion.div>
-          )}
+            {/* Step 2: Contact */}
+            <div ref={step2Ref}>
+              <BookingStep
+                number="02"
+                title="Client Details"
+                subtitle="Provide your primary contact information for the project."
+                isActive={step === 2}
+                isCompleted={step > 2}
+                onEdit={() => setStep(2)}
+                summary={
+                  <div style={{ display: 'flex', gap: '2rem' }}>
+                    <div>
+                      <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Name</span>
+                      <span style={{ fontWeight: '600' }}>{formData.name}</span>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Email</span>
+                      <span style={{ fontWeight: '600' }}>{formData.email}</span>
+                    </div>
+                  </div>
+                }
+              >
+                <form style={{ 
+                  maxWidth: '500px', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  gap: '2rem', 
+                  background: 'white', 
+                  padding: '3rem', 
+                  border: '1px solid var(--border)' 
+                }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <label style={{ fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Full Name</label>
+                    <input
+                      required
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      style={{ padding: '1rem', border: '1px solid var(--border)', borderRadius: '4px', outline: 'none' }}
+                      placeholder="John Doe"
+                    />
+                  </div>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <label style={{ fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Email Address</label>
+                    <input
+                      required
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onBlur={() => {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (formData.name.length > 2 && emailRegex.test(formData.email)) {
+                          setStep(3);
+                        }
+                      }}
+                      style={{ padding: '1rem', border: '1px solid var(--border)', borderRadius: '4px', outline: 'none' }}
+                      placeholder="john@example.com"
+                    />
+                  </div>
+                  
+                  <div style={{ fontSize: '0.625rem', color: 'var(--muted-foreground)', fontStyle: 'italic' }}>
+                    * Funnel will auto-proceed once contact details are verified.
+                  </div>
+                </form>
+              </BookingStep>
+            </div>
+
+            {/* Step 3: Payment */}
+            <div ref={step3Ref}>
+              <BookingStep
+                number="03"
+                title="Secure Placement"
+                subtitle="Complete your transaction via Payoneer to finalize the booking."
+                isActive={step === 3}
+                isCompleted={false}
+                isLast
+              >
+                <PaymentStep 
+                  onComplete={handlePaymentComplete} 
+                  total={currentTier?.price || '$1,500.00'} 
+                  isProcessing={isProcessing}
+                />
+              </BookingStep>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

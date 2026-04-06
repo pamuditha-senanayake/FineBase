@@ -1,8 +1,13 @@
+'use client';
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Packages from "@/components/Packages";
 import SlackCTA from "@/components/SlackCTA";
 import Footer from "@/components/Footer";
+import { motion } from "framer-motion";
+import Image from "next/image";
+
+import aImg from "@/images/a.jpg";
 
 export default function Home() {
   return (
@@ -45,20 +50,53 @@ export default function Home() {
                 </div>
               </div>
               <div style={{ position: 'relative' }}>
-                <div style={{
-                  aspectRatio: '1',
-                  background: '#f4f4f5',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '0.75rem',
-                  letterSpacing: '0.5em',
-                  textTransform: 'uppercase',
-                  color: '#ccc',
-                  border: '1px solid #efefef'
-                }}>
-                  R&D Laboratory
-                </div>
+                <motion.div 
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  style={{
+                    aspectRatio: '1',
+                    background: '#f4f4f5',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: '4px',
+                    border: '1px solid #efefef'
+                  }}
+                >
+                  <Image 
+                    src={aImg} 
+                    alt="R&D Laboratory" 
+                    fill 
+                    style={{ 
+                      objectFit: 'cover',
+                      filter: 'grayscale(100%) brightness(0.9)',
+                      transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.filter = 'grayscale(0%) brightness(1)';
+                      e.currentTarget.style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.filter = 'grayscale(100%) brightness(0.9)';
+                      e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '2rem',
+                    left: '2rem',
+                    fontSize: '0.625rem',
+                    letterSpacing: '0.3em',
+                    textTransform: 'uppercase',
+                    color: 'white',
+                    background: 'rgba(0,0,0,0.5)',
+                    padding: '0.5rem 1rem',
+                    backdropFilter: 'blur(10px)',
+                    zIndex: 1
+                  }}>
+                    R&D Laboratory
+                  </div>
+                </motion.div>
                 <div style={{
                   position: 'absolute',
                   top: '-2rem',
