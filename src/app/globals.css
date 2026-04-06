@@ -46,27 +46,74 @@ p {
   color: var(--muted-foreground);
 }
 
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 6rem;
+    --mobile-section-padding: 4rem;
+  }
+}
+
+.h1-mobile {
+  font-size: clamp(3rem, 15vw, 6rem) !important;
+}
+
+.h2-mobile {
+  font-size: clamp(2.25rem, 10vw, 3.5rem) !important;
+}
+
+.hide-mobile {
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .show-mobile {
+    display: block !important;
+  }
+}
+
 .container {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 2rem;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
 .section {
   padding: var(--section-padding) 0;
 }
 
-@media (max-width: 768px) {
-  .section {
-    padding: var(--mobile-section-padding) 0;
-  }
+/* Animations Helper */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 2.25rem;
   font-family: var(--font-sans);
   font-weight: 500;
   text-transform: uppercase;
@@ -85,8 +132,7 @@ p {
 .btn:hover {
   background: var(--foreground);
   color: var(--background);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transform: translateY(-2.5px);
 }
 
 .btn-primary {
@@ -110,16 +156,4 @@ p {
 
 .btn-primary:hover::after {
   left: 140%;
-}
-
-/* Animations Helper */
-.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
 }

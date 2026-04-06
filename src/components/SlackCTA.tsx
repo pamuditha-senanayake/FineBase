@@ -25,8 +25,8 @@ export default function SlackCTA() {
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-          gap: '6rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))',
+          gap: 'clamp(3rem, 10vw, 8rem)',
           alignItems: 'center'
         }}>
           <motion.div
@@ -38,43 +38,43 @@ export default function SlackCTA() {
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '1rem',
-              padding: '0.75rem 1.5rem',
+              gap: '0.75rem',
+              padding: '0.625rem 1.25rem',
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.05)',
               borderRadius: '50px',
-              marginBottom: '3rem'
+              marginBottom: '2.5rem'
             }}>
               <div style={{ width: '8px', height: '8px', background: '#4A154B', borderRadius: '50%' }}></div>
-              <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.2em', opacity: 0.6 }}>Collaboration Hub</span>
+              <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.2em', opacity: 0.6, fontWeight: '700' }}>Collaboration Hub</span>
             </div>
 
-            <h2 style={{ fontSize: '4rem', marginBottom: '2.5rem', color: 'white', lineHeight: '1.1' }}>
+            <h2 className="h1-mobile" style={{ fontSize: '4rem', marginBottom: '2.5rem', color: 'white', lineHeight: '1.1' }}>
               Discuss, Meet <br /> 
               <span style={{ fontStyle: 'italic', fontWeight: '300', opacity: 0.8 }}>& Innovate Together.</span>
             </h2>
             
-            <p style={{ fontSize: '1.25rem', color: '#a1a1aa', marginBottom: '3.5rem', lineHeight: '1.8', maxWidth: '600px' }}>
+            <p style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', color: '#a1a1aa', marginBottom: '3rem', lineHeight: '1.8', maxWidth: '600px' }}>
               Joining our Slack community isn't just about chat. It's your direct line to the Finebase Lab team for **onsite strategy meetings**, project deep-dives, and real-time R&D brainstorming.
             </p>
 
-            <div style={{ display: 'grid', gap: '2rem', marginBottom: '4rem' }}>
+            <div style={{ display: 'grid', gap: '2rem', marginBottom: '3.5rem' }}>
               <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
-                <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '4px' }}>
-                  <span style={{ fontSize: '0.75rem' }}>✓</span>
+                <div style={{ minWidth: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '4px' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--accent)' }}>✓</span>
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '1rem', marginBottom: '0.25rem' }}>Instant Strategy Syncs</h4>
-                  <p style={{ fontSize: '0.875rem', color: '#71717a' }}>Request a technical meeting with our lead engineers in seconds.</p>
+                  <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: 'white' }}>Instant Strategy Syncs</h4>
+                  <p style={{ fontSize: '0.875rem', color: '#71717a', lineHeight: '1.5' }}>Request a technical meeting with our lead engineers in seconds.</p>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
-                <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '4px' }}>
-                  <span style={{ fontSize: '0.75rem' }}>✓</span>
+                <div style={{ minWidth: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '4px' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--accent)' }}>✓</span>
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '1rem', marginBottom: '0.25rem' }}>Real-time Code & R&D</h4>
-                  <p style={{ fontSize: '0.875rem', color: '#71717a' }}>Watch your product evolve with live feedback loops and lab updates.</p>
+                  <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: 'white' }}>Real-time Code & R&D</h4>
+                  <p style={{ fontSize: '0.875rem', color: '#71717a', lineHeight: '1.5' }}>Watch your product evolve with live feedback loops and lab updates.</p>
                 </div>
               </div>
             </div>
@@ -83,19 +83,19 @@ export default function SlackCTA() {
               href={SLACK_INVITE} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="btn" 
+              className="btn btn-primary" 
               style={{ 
                 padding: '1.25rem 3.5rem', 
                 borderRadius: '100px', 
                 background: '#4A154B', 
                 color: 'white', 
-                border: 'none',
-                fontSize: '0.875rem',
-                fontWeight: '600',
+                borderColor: '#4A154B',
+                fontSize: '0.8125rem',
+                fontWeight: '700',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '1rem',
-                boxShadow: '0 10px 30px rgba(74, 21, 75, 0.3)'
+                boxShadow: '0 10px 40px rgba(74, 21, 75, 0.3)'
               }}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -114,7 +114,7 @@ export default function SlackCTA() {
           >
             <div style={{
               width: '100%',
-              aspectRatio: '5/4',
+              aspectRatio: 'clamp(1, 4/3, 5/4)',
               background: 'rgba(255,255,255,0.02)',
               border: '1px solid rgba(255,255,255,0.05)',
               borderRadius: '24px',
@@ -138,8 +138,8 @@ export default function SlackCTA() {
               }}></div>
             </div>
             {/* Callouts */}
-            <div style={{ position: 'absolute', top: '10%', right: '-5%', background: '#ff4b2b', padding: '0.75rem 1.25rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '700' }}>LIVE R&D</div>
-            <div style={{ position: 'absolute', bottom: '15%', left: '-10%', background: 'var(--accent)', color: 'black', padding: '0.75rem 1.25rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '700' }}>STRATEGY SYNC</div>
+            <div className="hide-mobile" style={{ position: 'absolute', top: '10%', right: '-5%', background: '#ff4b2b', padding: '0.75rem 1.25rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '700' }}>LIVE R&D</div>
+            <div className="hide-mobile" style={{ position: 'absolute', bottom: '15%', left: '-10%', background: 'var(--accent)', color: 'black', padding: '0.75rem 1.25rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '700' }}>STRATEGY SYNC</div>
           </motion.div>
         </div>
       </div>

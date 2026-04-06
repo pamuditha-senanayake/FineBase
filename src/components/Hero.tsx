@@ -7,8 +7,8 @@ const SLACK_INVITE = "https://join.slack.com/t/finebaselabs/shared_invite/zt-3ut
 export default function Hero() {
   return (
     <section className="section" style={{
-      paddingTop: '20rem',
-      paddingBottom: '14rem',
+      paddingTop: 'clamp(10rem, 20vh, 20rem)',
+      paddingBottom: 'clamp(6rem, 15vh, 14rem)',
       background: 'var(--background)',
       position: 'relative',
       overflow: 'hidden'
@@ -38,19 +38,19 @@ export default function Hero() {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '1rem',
+              gap: '0.75rem',
               padding: '0.625rem 1.25rem',
               background: 'rgba(212, 175, 55, 0.05)',
               border: '1px solid rgba(212, 175, 55, 0.1)',
               borderRadius: '100px',
-              marginBottom: '3rem'
+              marginBottom: '2.5rem'
             }}
           >
             <div style={{ width: '6px', height: '6px', background: 'var(--accent)', borderRadius: '50%' }}></div>
             <span style={{
               fontSize: '0.625rem',
               textTransform: 'uppercase',
-              letterSpacing: '0.3em',
+              letterSpacing: '0.25em',
               color: 'var(--accent)',
               fontWeight: '700'
             }}>
@@ -58,14 +58,14 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          <h1 style={{
-            fontSize: 'max(5rem, 8vw)',
-            marginBottom: '3rem',
-            lineHeight: '1',
+          <h1 className="h1-mobile" style={{
+            fontSize: 'max(4.5rem, 8vw)',
+            marginBottom: '2.5rem',
+            lineHeight: '1.1',
             color: 'var(--foreground)',
             fontFamily: 'var(--font-serif)',
             fontWeight: '400',
-            letterSpacing: '-0.03em'
+            letterSpacing: '-0.02em'
           }}>
             Advanced R&D. <br />
             Architectural <span style={{ fontStyle: 'italic', fontWeight: '300', opacity: 0.9 }}>Distinction</span>.
@@ -76,12 +76,12 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
             style={{
-              fontSize: '1.375rem',
+              fontSize: 'clamp(1rem, 2.5vw, 1.375rem)',
               color: 'var(--muted-foreground)',
-              marginBottom: '5rem',
+              marginBottom: '4rem',
               maxWidth: '700px',
-              margin: '0 auto 5rem',
-              lineHeight: '1.8'
+              margin: '0 auto 4rem',
+              lineHeight: '1.7'
             }}
           >
             Empowering tech-driven enterprises through elite software engineering, 
@@ -92,17 +92,17 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            style={{ display: 'flex', gap: '2rem', justifyContent: 'center', alignItems: 'center' }}
+            style={{ display: 'flex', gap: '1rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
           >
-            <Link href="/booking" className="btn btn-primary" style={{ padding: '1.5rem 4rem', borderRadius: '100px' }}>
-              Launch Your Project
+            <Link href="/booking" className="btn btn-primary" style={{ padding: '1.25rem 3.5rem', borderRadius: '100px' }}>
+              Launch Project
             </Link>
             <a 
               href={SLACK_INVITE} 
               target="_blank" 
               rel="noopener noreferrer"
               className="btn" 
-              style={{ padding: '1.5rem 4rem', borderRadius: '100px', border: '1px solid var(--border)' }}
+              style={{ padding: '1.25rem 3.5rem', borderRadius: '100px', border: '1px solid var(--border)' }}
             >
               Discuss in Lab
             </a>

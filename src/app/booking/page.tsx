@@ -115,7 +115,7 @@ function BookingContent() {
         <motion.div
            initial={{ opacity: 0, scale: 0.9 }}
            animate={{ opacity: 1, scale: 1 }}
-           style={{ textAlign: 'center', maxWidth: '500px' }}
+           style={{ textAlign: 'center', maxWidth: '500px', padding: '0 2rem' }}
         >
           <div style={{ 
             width: '80px', 
@@ -150,7 +150,7 @@ function BookingContent() {
             Automated Receipt Sent
           </div>
 
-          <h1 style={{ fontSize: '3.5rem', marginBottom: '1.5rem', lineHeight: '1.1', color: 'white' }}>Reservation <br /> <span style={{ fontStyle: 'italic' }}>Simulated Success</span>.</h1>
+          <h1 className="h1-mobile" style={{ fontSize: '3.5rem', marginBottom: '1.5rem', lineHeight: '1.1', color: 'white' }}>Reservation <br /> <span style={{ fontStyle: 'italic' }}>Simulated Success</span>.</h1>
           <p style={{ color: 'var(--muted-foreground)', marginBottom: '3.5rem', fontSize: '1rem', lineHeight: '1.6' }}>
             Your sandbox transaction has been successful. A formal digital receipt and onboarding kit have been "sent" to <b>{formData.email}</b>. 
             Your transaction ID for reference is <b style={{ color: 'white' }}>{txnDetails.id}</b>.
@@ -164,12 +164,12 @@ function BookingContent() {
   }
 
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: '10rem', background: 'var(--background)' }}>
+    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: 'clamp(6rem, 15vh, 10rem)', background: 'var(--background)' }}>
       <Navbar />
-      <div className="container" style={{ flex: 1, marginBottom: '15rem' }}>
+      <div className="container" style={{ flex: 1, marginBottom: 'clamp(5rem, 15vh, 15rem)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <header style={{ marginBottom: '6rem', textAlign: 'left' }}>
-            <h1 style={{ fontSize: '4.5rem', marginBottom: '1.5rem', lineHeight: '1', color: 'white' }}>Project <br /> <span style={{ fontStyle: 'italic' }}>Initiation</span>.</h1>
+          <header style={{ marginBottom: 'clamp(3rem, 10vw, 6rem)', textAlign: 'left' }}>
+            <h1 className="h1-mobile" style={{ fontSize: '4.5rem', marginBottom: '1.5rem', lineHeight: '1', color: 'white' }}>Project <br /> <span style={{ fontStyle: 'italic' }}>Initiation</span>.</h1>
             <p style={{ maxWidth: '500px', color: 'var(--muted-foreground)' }}>
               Complete the following stages to secure your placement in the Finebase R&D Lab.
             </p>
@@ -186,7 +186,7 @@ function BookingContent() {
                 isCompleted={!!activeTierName && step > 0}
                 onEdit={() => setStep(0)}
                 summary={
-                  <div style={{ display: 'flex', gap: '2rem' }}>
+                  <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
                     <div>
                       <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Category</span>
                       <span style={{ fontWeight: '600', color: 'white' }}>{currentCategory.title}</span>
@@ -198,8 +198,8 @@ function BookingContent() {
                   </div>
                 }
               >
-                <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '3rem', borderRadius: '8px' }}>
-                  <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
+                <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: 'clamp(1.5rem, 5vw, 3rem)', borderRadius: '8px' }}>
+                  <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
                     {SERVICE_CATEGORIES.map(cat => (
                       <button 
                         key={cat.id}
@@ -208,7 +208,7 @@ function BookingContent() {
                           setActiveTierName(''); // Reset tier when category changes
                         }}
                         style={{
-                          padding: '0.625rem 1.5rem',
+                          padding: '0.75rem 1.5rem',
                           borderRadius: '100px',
                           border: activeCategoryId === cat.id ? '1px solid var(--accent)' : '1px solid rgba(255, 255, 255, 0.1)',
                           background: activeCategoryId === cat.id ? 'var(--accent)' : 'transparent',
@@ -225,7 +225,7 @@ function BookingContent() {
                     ))}
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '1.5rem' }}>
                     {currentCategory.tiers.map(tier => (
                       <button
                         key={tier.name}
@@ -236,7 +236,7 @@ function BookingContent() {
                         }}
                         style={{
                           textAlign: 'left',
-                          padding: '1.5rem',
+                          padding: '1.75rem',
                           border: activeTierName === tier.name ? '1px solid var(--accent)' : '1px solid rgba(255, 255, 255, 0.05)',
                           background: activeTierName === tier.name ? 'rgba(212, 175, 55, 0.1)' : 'rgba(255, 255, 255, 0.02)',
                           borderRadius: '8px',
@@ -263,7 +263,7 @@ function BookingContent() {
               isCompleted={step > 1}
               onEdit={() => setStep(1)}
               summary={
-                <div style={{ display: 'flex', gap: '2rem' }}>
+                <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
                   <div>
                     <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Date</span>
                     <span style={{ fontWeight: '600', color: 'white' }}>{formData.date}</span>
@@ -288,7 +288,7 @@ function BookingContent() {
                 isCompleted={step > 2}
                 onEdit={() => setStep(2)}
                 summary={
-                  <div style={{ display: 'flex', gap: '2rem' }}>
+                  <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
                     <div>
                       <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Name</span>
                       <span style={{ fontWeight: '600', color: 'white' }}>{formData.name}</span>
@@ -306,7 +306,7 @@ function BookingContent() {
                   flexDirection: 'column', 
                   gap: '2.5rem', 
                   background: 'rgba(255, 255, 255, 0.02)', 
-                  padding: '3rem', 
+                  padding: 'clamp(1.5rem, 5vw, 3rem)', 
                   border: '1px solid rgba(255, 255, 255, 0.05)',
                   borderRadius: '12px'
                 }}>
@@ -318,12 +318,13 @@ function BookingContent() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       style={{ 
-                        padding: '1rem', 
+                        padding: '1.125rem', 
                         background: 'rgba(255,255,255,0.03)', 
                         border: '1px solid rgba(255,255,255,0.1)', 
                         borderRadius: '4px', 
                         outline: 'none',
-                        color: 'white'
+                        color: 'white',
+                        fontSize: '1rem'
                       }}
                       placeholder="John Doe"
                     />
@@ -343,18 +344,19 @@ function BookingContent() {
                         }
                       }}
                       style={{ 
-                        padding: '1rem', 
+                        padding: '1.125rem', 
                         background: 'rgba(255,255,255,0.03)', 
                         border: '1px solid rgba(255,255,255,0.1)', 
                         borderRadius: '4px', 
                         outline: 'none',
-                        color: 'white'
+                        color: 'white',
+                        fontSize: '1rem'
                       }}
                       placeholder="john@example.com"
                     />
                   </div>
                   
-                  <div style={{ fontSize: '0.625rem', color: 'var(--muted-foreground)', fontStyle: 'italic' }}>
+                  <div style={{ fontSize: '0.625rem', color: 'var(--muted-foreground)', fontStyle: 'italic', lineHeight: '1.5' }}>
                     * Funnel will auto-proceed once contact details are verified.
                   </div>
                 </form>

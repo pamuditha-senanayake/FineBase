@@ -9,13 +9,13 @@ export default function Footer() {
   return (
     <footer className="footer" style={{
       borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-      padding: '8rem 0',
+      padding: 'clamp(4rem, 10vw, 8rem) 0',
       background: 'var(--background)'
     }}>
       <div className="container" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '4rem'
+        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+        gap: 'clamp(2.5rem, 5vw, 4rem)'
       }}>
         <div style={{ maxWidth: '300px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
@@ -24,7 +24,7 @@ export default function Footer() {
               fontSize: '1rem',
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              fontWeight: '600',
+              fontWeight: '700',
               color: 'white',
               margin: 0
             }}>
@@ -36,7 +36,7 @@ export default function Footer() {
           </p>
         </div>
         
-        <div>
+        <div style={{ minWidth: '140px' }}>
           <h4 style={{ fontSize: '0.625rem', textTransform: 'uppercase', marginBottom: '2rem', letterSpacing: '0.2em', color: 'rgba(255, 255, 255, 0.4)' }}>Navigation</h4>
           <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <li><Link href="/" style={{ fontSize: '0.8125rem', color: 'white', textDecoration: 'none', transition: 'color 0.2s ease' }}>Home</Link></li>
@@ -46,7 +46,7 @@ export default function Footer() {
           </ul>
         </div>
         
-        <div>
+        <div style={{ minWidth: '140px' }}>
           <h4 style={{ fontSize: '0.625rem', textTransform: 'uppercase', marginBottom: '2rem', letterSpacing: '0.2em', color: 'rgba(255, 255, 255, 0.4)' }}>Contact</h4>
           <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <li style={{ fontSize: '0.8125rem', color: 'white' }}>ops@finebase.studio</li>
@@ -54,7 +54,7 @@ export default function Footer() {
           </ul>
         </div>
         
-        <div>
+        <div style={{ minWidth: '140px' }}>
           <h4 style={{ fontSize: '0.625rem', textTransform: 'uppercase', marginBottom: '2rem', letterSpacing: '0.2em', color: 'rgba(255, 255, 255, 0.4)' }}>Community</h4>
           <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <li><a href={SLACK_INVITE} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.8125rem', color: 'white', textDecoration: 'none' }}>Slack Discussion</a></li>
@@ -64,7 +64,7 @@ export default function Footer() {
       </div>
       
       <div className="container" style={{
-        marginTop: '8rem',
+        marginTop: 'clamp(4rem, 8vw, 8rem)',
         paddingTop: '3rem',
         borderTop: '1px solid rgba(255, 255, 255, 0.05)',
         fontSize: '0.625rem',
