@@ -19,7 +19,7 @@ export default function Home() {
         <SlackCTA />
         
         {/* Why Finebase Section */}
-        <section className="section" style={{ background: 'white', borderTop: '1px solid var(--border)' }}>
+        <section className="section" style={{ background: 'var(--background)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="container">
             <div style={{
               display: 'grid',
@@ -28,23 +28,23 @@ export default function Home() {
               alignItems: 'center'
             }}>
               <div>
-                <h2 style={{ fontSize: '3.5rem', marginBottom: '2.5rem' }}>Strategic <br /> <span style={{ fontStyle: 'italic' }}>Precision</span>.</h2>
+                <h2 style={{ fontSize: '3.5rem', marginBottom: '2.5rem', color: 'white' }}>Strategic <br /> <span style={{ fontStyle: 'italic' }}>Precision</span>.</h2>
                 <p style={{
                   fontSize: '1.25rem',
                   lineHeight: '1.8',
-                  color: 'var(--foreground)',
+                  color: 'var(--muted-foreground)',
                   marginBottom: '2rem'
                 }}>
                   At Finebase Labs, we believe that greatness is found in the details. 
                   Every line of code and every technical architecture is meticulously 
                   crafted to ensure your product resonates with performance and distinction.
                 </p>
-                <div style={{ padding: '2rem', background: '#fcfcfc', border: '1px solid #eee' }}>
+                <div style={{ padding: '2rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px' }}>
                   <blockquote style={{ fontSize: '1.125rem', fontStyle: 'italic', color: 'var(--muted-foreground)' }}>
                     "Technological innovation is not just about complexity, but about the elegant 
                     integration of systems that serve human needs."
                   </blockquote>
-                  <cite style={{ display: 'block', marginTop: '1rem', fontSize: '0.875rem', fontWeight: '600', fontStyle: 'normal' }}>
+                  <cite style={{ display: 'block', marginTop: '1rem', fontSize: '0.875rem', fontWeight: '600', fontStyle: 'normal', color: 'white' }}>
                     — Finebase Labs Philosophy
                   </cite>
                 </div>
@@ -56,11 +56,11 @@ export default function Home() {
                   viewport={{ once: true }}
                   style={{
                     aspectRatio: '1',
-                    background: '#f4f4f5',
+                    background: 'rgba(255,255,255,0.03)',
                     position: 'relative',
                     overflow: 'hidden',
                     borderRadius: '4px',
-                    border: '1px solid #efefef'
+                    border: '1px solid rgba(255,255,255,0.1)'
                   }}
                 >
                   <Image 
@@ -68,16 +68,16 @@ export default function Home() {
                     alt="R&D Laboratory" 
                     fill 
                     style={{ 
-                      objectFit: 'cover',
-                      filter: 'grayscale(100%) brightness(0.9)',
-                      transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                       objectFit: 'cover',
+                       filter: 'grayscale(100%) brightness(0.8)',
+                       transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.filter = 'grayscale(0%) brightness(1)';
                       e.currentTarget.style.transform = 'scale(1.05)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.filter = 'grayscale(100%) brightness(0.9)';
+                      e.currentTarget.style.filter = 'grayscale(100%) brightness(0.8)';
                       e.currentTarget.style.transform = 'scale(1)';
                     }}
                   />

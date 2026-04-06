@@ -111,14 +111,24 @@ function BookingContent() {
 
   if (isComplete) {
     return (
-      <main style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white' }}>
+      <main style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--background)' }}>
         <motion.div
            initial={{ opacity: 0, scale: 0.9 }}
            animate={{ opacity: 1, scale: 1 }}
            style={{ textAlign: 'center', maxWidth: '500px' }}
         >
-          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#f8fafc', margin: '0 auto 2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #2B2E4A' }}>
-            <span style={{ fontSize: '2rem', color: '#2B2E4A' }}>✓</span>
+          <div style={{ 
+            width: '80px', 
+            height: '80px', 
+            borderRadius: '50%', 
+            background: 'rgba(255, 255, 255, 0.02)', 
+            margin: '0 auto 2.5rem', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            border: '1px solid rgba(255, 255, 255, 0.1)' 
+          }}>
+            <span style={{ fontSize: '2rem', color: 'var(--accent)' }}>✓</span>
           </div>
           
           <div style={{
@@ -126,10 +136,10 @@ function BookingContent() {
             alignItems: 'center',
             gap: '0.75rem',
             padding: '0.5rem 1rem',
-            background: 'rgba(34, 197, 94, 0.05)',
-            border: '1px solid rgba(34, 197, 94, 0.1)',
+            background: 'rgba(34, 197, 94, 0.1)',
+            border: '1px solid rgba(34, 197, 94, 0.2)',
             borderRadius: '100px',
-            color: '#15803d',
+            color: '#4ade80',
             fontSize: '0.625rem',
             fontWeight: '700',
             textTransform: 'uppercase',
@@ -140,12 +150,12 @@ function BookingContent() {
             Automated Receipt Sent
           </div>
 
-          <h1 style={{ fontSize: '3rem', marginBottom: '1.5rem', lineHeight: '1.1' }}>Reservation <br /> <span style={{ fontStyle: 'italic' }}>Simulated Success</span>.</h1>
+          <h1 style={{ fontSize: '3.5rem', marginBottom: '1.5rem', lineHeight: '1.1', color: 'white' }}>Reservation <br /> <span style={{ fontStyle: 'italic' }}>Simulated Success</span>.</h1>
           <p style={{ color: 'var(--muted-foreground)', marginBottom: '3.5rem', fontSize: '1rem', lineHeight: '1.6' }}>
             Your sandbox transaction has been successful. A formal digital receipt and onboarding kit have been "sent" to <b>{formData.email}</b>. 
-            Your transaction ID for reference is <b>{txnDetails.id}</b>.
+            Your transaction ID for reference is <b style={{ color: 'white' }}>{txnDetails.id}</b>.
           </p>
-          <button onClick={() => router.push('/')} className="btn btn-primary" style={{ padding: '1rem 4rem', borderRadius: '100px' }}>
+          <button onClick={() => router.push('/')} className="btn btn-primary" style={{ padding: '1.125rem 4rem', borderRadius: '100px' }}>
             Return Home
           </button>
         </motion.div>
@@ -154,12 +164,12 @@ function BookingContent() {
   }
 
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: '10rem' }}>
+    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: '10rem', background: 'var(--background)' }}>
       <Navbar />
       <div className="container" style={{ flex: 1, marginBottom: '15rem' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <header style={{ marginBottom: '6rem', textAlign: 'left' }}>
-            <h1 style={{ fontSize: '4.5rem', marginBottom: '1.5rem', lineHeight: '1' }}>Project <br /> <span style={{ fontStyle: 'italic' }}>Initiation</span>.</h1>
+            <h1 style={{ fontSize: '4.5rem', marginBottom: '1.5rem', lineHeight: '1', color: 'white' }}>Project <br /> <span style={{ fontStyle: 'italic' }}>Initiation</span>.</h1>
             <p style={{ maxWidth: '500px', color: 'var(--muted-foreground)' }}>
               Complete the following stages to secure your placement in the Finebase R&D Lab.
             </p>
@@ -179,16 +189,16 @@ function BookingContent() {
                   <div style={{ display: 'flex', gap: '2rem' }}>
                     <div>
                       <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Category</span>
-                      <span style={{ fontWeight: '600' }}>{currentCategory.title}</span>
+                      <span style={{ fontWeight: '600', color: 'white' }}>{currentCategory.title}</span>
                     </div>
                     <div>
                       <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Tier</span>
-                      <span style={{ fontWeight: '600' }}>{activeTierName || 'Not Selected'}</span>
+                      <span style={{ fontWeight: '600', color: 'white' }}>{activeTierName || 'Not Selected'}</span>
                     </div>
                   </div>
                 }
               >
-                <div style={{ background: 'white', border: '1px solid var(--border)', padding: '3rem', borderRadius: '8px' }}>
+                <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '3rem', borderRadius: '8px' }}>
                   <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
                     {SERVICE_CATEGORIES.map(cat => (
                       <button 
@@ -200,13 +210,13 @@ function BookingContent() {
                         style={{
                           padding: '0.625rem 1.5rem',
                           borderRadius: '100px',
-                          border: activeCategoryId === cat.id ? '1px solid var(--accent)' : '1px solid var(--border)',
-                          background: activeCategoryId === cat.id ? 'var(--foreground)' : 'white',
-                          color: activeCategoryId === cat.id ? 'var(--background)' : 'var(--foreground)',
+                          border: activeCategoryId === cat.id ? '1px solid var(--accent)' : '1px solid rgba(255, 255, 255, 0.1)',
+                          background: activeCategoryId === cat.id ? 'var(--accent)' : 'transparent',
+                          color: activeCategoryId === cat.id ? 'black' : 'white',
                           fontSize: '0.625rem',
                           textTransform: 'uppercase',
                           letterSpacing: '0.1em',
-                          fontWeight: '600',
+                          fontWeight: '700',
                           cursor: 'pointer'
                         }}
                       >
@@ -227,15 +237,15 @@ function BookingContent() {
                         style={{
                           textAlign: 'left',
                           padding: '1.5rem',
-                          border: activeTierName === tier.name ? '1px solid var(--accent)' : '1px solid var(--border)',
-                          background: activeTierName === tier.name ? '#fcfcfc' : 'white',
+                          border: activeTierName === tier.name ? '1px solid var(--accent)' : '1px solid rgba(255, 255, 255, 0.05)',
+                          background: activeTierName === tier.name ? 'rgba(212, 175, 55, 0.1)' : 'rgba(255, 255, 255, 0.02)',
                           borderRadius: '8px',
                           cursor: 'pointer',
                           transition: 'all 0.2s ease'
                         }}
                       >
                         <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', color: 'var(--muted-foreground)', display: 'block', marginBottom: '0.5rem' }}>{tier.name}</span>
-                        <div style={{ fontSize: '1.25rem', fontWeight: '500' }}>{tier.price}</div>
+                        <div style={{ fontSize: '1.25rem', fontWeight: '500', color: 'white' }}>{tier.price}</div>
                         <div style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--accent)' }}>Select Tier →</div>
                       </button>
                     ))}
@@ -256,11 +266,11 @@ function BookingContent() {
                 <div style={{ display: 'flex', gap: '2rem' }}>
                   <div>
                     <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Date</span>
-                    <span style={{ fontWeight: '600' }}>{formData.date}</span>
+                    <span style={{ fontWeight: '600', color: 'white' }}>{formData.date}</span>
                   </div>
                   <div>
                     <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Time</span>
-                    <span style={{ fontWeight: '600' }}>{formData.time}</span>
+                    <span style={{ fontWeight: '600', color: 'white' }}>{formData.time}</span>
                   </div>
                 </div>
               }
@@ -281,11 +291,11 @@ function BookingContent() {
                   <div style={{ display: 'flex', gap: '2rem' }}>
                     <div>
                       <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Name</span>
-                      <span style={{ fontWeight: '600' }}>{formData.name}</span>
+                      <span style={{ fontWeight: '600', color: 'white' }}>{formData.name}</span>
                     </div>
                     <div>
                       <span style={{ fontSize: '0.625rem', textTransform: 'uppercase', opacity: 0.5, display: 'block' }}>Email</span>
-                      <span style={{ fontWeight: '600' }}>{formData.email}</span>
+                      <span style={{ fontWeight: '600', color: 'white' }}>{formData.email}</span>
                     </div>
                   </div>
                 }
@@ -294,25 +304,33 @@ function BookingContent() {
                   maxWidth: '500px', 
                   display: 'flex', 
                   flexDirection: 'column', 
-                  gap: '2rem', 
-                  background: 'white', 
+                  gap: '2.5rem', 
+                  background: 'rgba(255, 255, 255, 0.02)', 
                   padding: '3rem', 
-                  border: '1px solid var(--border)' 
+                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  borderRadius: '12px'
                 }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <label style={{ fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Full Name</label>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    <label style={{ fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5 }}>Full Name</label>
                     <input
                       required
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      style={{ padding: '1rem', border: '1px solid var(--border)', borderRadius: '4px', outline: 'none' }}
+                      style={{ 
+                        padding: '1rem', 
+                        background: 'rgba(255,255,255,0.03)', 
+                        border: '1px solid rgba(255,255,255,0.1)', 
+                        borderRadius: '4px', 
+                        outline: 'none',
+                        color: 'white'
+                      }}
                       placeholder="John Doe"
                     />
                   </div>
                   
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <label style={{ fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Email Address</label>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    <label style={{ fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5 }}>Email Address</label>
                     <input
                       required
                       type="email"
@@ -324,7 +342,14 @@ function BookingContent() {
                           setStep(3);
                         }
                       }}
-                      style={{ padding: '1rem', border: '1px solid var(--border)', borderRadius: '4px', outline: 'none' }}
+                      style={{ 
+                        padding: '1rem', 
+                        background: 'rgba(255,255,255,0.03)', 
+                        border: '1px solid rgba(255,255,255,0.1)', 
+                        borderRadius: '4px', 
+                        outline: 'none',
+                        color: 'white'
+                      }}
                       placeholder="john@example.com"
                     />
                   </div>

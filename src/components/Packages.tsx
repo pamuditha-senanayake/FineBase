@@ -44,10 +44,10 @@ export default function Packages() {
   const currentCategory = SERVICE_CATEGORIES.find(c => c.id === activeTab)!;
 
   return (
-    <section id="packages" className="section" style={{ background: '#fafafa', padding: '12rem 0' }}>
+    <section id="packages" className="section" style={{ background: 'var(--background)', padding: '12rem 0' }}>
       <div className="container">
         <div style={{ marginBottom: '6rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto 6rem' }}>
-          <h2 style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>Unified <br /> <span style={{ fontStyle: 'italic' }}>Service Tiers</span>.</h2>
+          <h2 style={{ fontSize: '3.5rem', marginBottom: '2rem', color: 'white' }}>Unified <br /> <span style={{ fontStyle: 'italic' }}>Service Tiers</span>.</h2>
           <p style={{ fontSize: '1.25rem', color: 'var(--muted-foreground)', lineHeight: '1.8' }}>
             We've simplified our engagement model. Select your project category and choose a tier that matches your scope. 
             All pricing is initial—final terms and payment plans are finalized in your strategy meeting.
@@ -69,13 +69,13 @@ export default function Packages() {
               style={{
                 padding: '0.75rem 2.5rem',
                 borderRadius: '100px',
-                border: activeTab === cat.id ? '1px solid var(--accent)' : '1px solid var(--border)',
-                background: activeTab === cat.id ? 'var(--foreground)' : 'white',
-                color: activeTab === cat.id ? 'var(--background)' : 'var(--foreground)',
+                border: activeTab === cat.id ? '1px solid var(--accent)' : '1px solid rgba(255,255,255,0.1)',
+                background: activeTab === cat.id ? 'var(--accent)' : 'transparent',
+                color: activeTab === cat.id ? 'black' : 'white',
                 fontSize: '0.625rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
-                fontWeight: '600',
+                fontWeight: '700',
                 cursor: 'pointer',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
@@ -103,9 +103,9 @@ export default function Packages() {
               <div
                 key={idx}
                 style={{
-                  background: 'white',
+                  background: 'rgba(255, 255, 255, 0.02)',
                   padding: '3rem',
-                  border: '1px solid var(--border)',
+                  border: '1px solid rgba(255, 255, 255, 0.05)',
                   borderRadius: '12px',
                   display: 'flex',
                   flexDirection: 'column'
@@ -123,7 +123,7 @@ export default function Packages() {
                     {tier.name}
                   </span>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <h3 style={{ fontSize: '1.75rem', color: 'var(--foreground)' }}>{tier.price}</h3>
+                    <h3 style={{ fontSize: '1.75rem', color: 'white' }}>{tier.price}</h3>
                   </div>
                 </div>
 
@@ -135,7 +135,7 @@ export default function Packages() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.875rem',
-                      color: '#555'
+                      color: 'rgba(255, 255, 255, 0.5)'
                     }}>
                       <span style={{ width: '6px', height: '1px', background: 'var(--accent)' }}></span>
                       {feat}
@@ -146,7 +146,14 @@ export default function Packages() {
                 <Link 
                   href={`/booking?service=${currentCategory.id}-${tier.name.toLowerCase()}`} 
                   className="btn" 
-                  style={{ width: '100%', fontSize: '0.625rem', padding: '1rem', borderRadius: '4px' }}
+                  style={{ 
+                    width: '100%', 
+                    fontSize: '0.625rem', 
+                    padding: '1rem', 
+                    borderRadius: '4px',
+                    borderColor: 'var(--accent)',
+                    color: 'var(--accent)'
+                  }}
                 >
                   Initiate Project
                 </Link>
@@ -159,12 +166,12 @@ export default function Packages() {
         <div style={{ 
           marginTop: '6rem', 
           padding: '3rem', 
-          background: 'white', 
-          border: '1px solid var(--border)', 
+          background: 'rgba(255, 255, 255, 0.02)', 
+          border: '1px solid rgba(255, 255, 255, 0.05)', 
           borderRadius: '12px',
           textAlign: 'center'
         }}>
-          <h4 style={{ fontSize: '1.25rem', marginBottom: '1rem', fontFamily: 'var(--font-serif)' }}>Tailored Terms & Payment Plans</h4>
+          <h4 style={{ fontSize: '1.25rem', marginBottom: '1rem', fontFamily: 'var(--font-serif)', color: 'white' }}>Tailored Terms & Payment Plans</h4>
           <p style={{ fontSize: '0.95rem', maxWidth: '600px', margin: '0 auto', color: 'var(--muted-foreground)' }}>
             We believe in high-impact collaboration regardless of immediate budget constraints. 
             Flexible payment plans and price negotiations are available and encouraged during our technical strategy sessions.

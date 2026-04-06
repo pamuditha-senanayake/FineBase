@@ -16,9 +16,9 @@ export default function Navbar() {
       top: 0,
       width: '100%',
       zIndex: 1000,
-      background: 'rgba(255, 255, 255, 0.85)',
+      background: 'rgba(9, 9, 11, 0.8)',
       backdropFilter: 'blur(30px)',
-      borderBottom: '1px solid rgba(0,0,0,0.03)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
       padding: '1.25rem 0'
     }}>
       <div className="container" style={{
@@ -42,7 +42,7 @@ export default function Navbar() {
             letterSpacing: '0.25em',
             textTransform: 'uppercase',
             fontWeight: '400',
-            color: 'var(--foreground)'
+            color: 'white'
           }}>
             FINEBASE <span style={{ color: 'var(--accent)', fontWeight: '300' }}>LABS</span>
           </span>
@@ -62,7 +62,7 @@ export default function Navbar() {
                     textTransform: 'uppercase',
                     letterSpacing: '0.2em',
                     fontWeight: '600',
-                    color: isActive ? 'var(--foreground)' : 'var(--muted-foreground)',
+                    color: isActive ? 'var(--accent)' : 'rgba(255, 255, 255, 0.5)',
                     transition: 'all 0.3s ease',
                     textDecoration: 'none',
                     position: 'relative',
@@ -106,18 +106,18 @@ export default function Navbar() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.75rem',
-                background: 'rgba(74, 21, 75, 0.03)',
-                borderColor: 'rgba(74, 21, 75, 0.15)',
-                color: '#4A154B', 
+                background: 'rgba(255, 255, 255, 0.03)',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                color: 'white', 
                 transition: 'all 0.3s ease',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#4A154B';
-                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#4A154B';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(74, 21, 75, 0.03)';
-                e.currentTarget.style.color = '#4A154B';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
               }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -133,7 +133,8 @@ export default function Navbar() {
               display: 'flex',
               alignItems: 'center',
               gap: '0.75rem',
-              background: '#0a0a0a',
+              background: 'var(--foreground)',
+              color: 'var(--background)',
               textDecoration: 'none'
             }}>
               Start a Project
