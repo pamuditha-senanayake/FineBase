@@ -24,22 +24,30 @@ export default function Calendar({ onSelect }: { onSelect: (date: string, time: 
   };
 
   return (
-    <div style={{ background: 'white', padding: '3rem', border: '1px solid var(--border)' }}>
-      <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>Select a Date</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
+    <div style={{ 
+      background: 'rgba(255, 255, 255, 0.02)', 
+      padding: '3.5rem', 
+      border: '1px solid rgba(255, 255, 255, 0.05)',
+      borderRadius: '12px'
+    }}>
+      <h3 style={{ fontSize: '1.25rem', marginBottom: '2.5rem', color: 'white', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Select a Date</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '1rem', marginBottom: '4rem' }}>
         {dates.map((date) => (
           <button
             key={date}
             onClick={() => setSelectedDate(date)}
             style={{
-              padding: '1rem 0.5rem',
-              border: selectedDate === date ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-              background: 'transparent',
+              padding: '1.25rem 0.5rem',
+              border: selectedDate === date ? '1px solid var(--accent)' : '1px solid rgba(255, 255, 255, 0.1)',
+              background: selectedDate === date ? 'rgba(212, 175, 55, 0.1)' : 'rgba(255, 255, 255, 0.03)',
               cursor: 'pointer',
-              fontSize: '0.75rem',
+              fontSize: '0.625rem',
+              fontWeight: '700',
               textAlign: 'center',
-              transition: 'all 0.2s ease',
-              color: selectedDate === date ? 'var(--accent)' : 'var(--foreground)'
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              color: selectedDate === date ? 'var(--accent)' : 'rgba(255, 255, 255, 0.5)'
             }}
           >
             {date}
@@ -47,7 +55,7 @@ export default function Calendar({ onSelect }: { onSelect: (date: string, time: 
         ))}
       </div>
 
-      <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>Available Time Slots</h3>
+      <h3 style={{ fontSize: '1.25rem', marginBottom: '2.5rem', color: 'white', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Available Time Slots</h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '1rem' }}>
         {TIMES.map((time) => (
           <button
@@ -58,14 +66,17 @@ export default function Calendar({ onSelect }: { onSelect: (date: string, time: 
             }}
             disabled={!selectedDate}
             style={{
-              padding: '1rem',
-              border: selectedTime === time ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-              background: 'transparent',
+              padding: '1.25rem',
+              border: selectedTime === time ? '1px solid var(--accent)' : '1px solid rgba(255, 255, 255, 0.1)',
+              background: selectedTime === time ? 'rgba(212, 175, 55, 0.1)' : (selectedDate ? 'rgba(255, 255, 255, 0.03)' : 'transparent'),
               cursor: selectedDate ? 'pointer' : 'not-allowed',
-              opacity: selectedDate ? 1 : 0.4,
-              fontSize: '0.875rem',
-              transition: 'all 0.2s ease',
-              color: selectedTime === time ? 'var(--accent)' : 'var(--foreground)'
+              opacity: selectedDate ? 1 : 0.2,
+              fontSize: '0.75rem',
+              fontWeight: '600',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              color: selectedTime === time ? 'var(--accent)' : 'rgba(255, 255, 255, 0.5)'
             }}
           >
             {time}
